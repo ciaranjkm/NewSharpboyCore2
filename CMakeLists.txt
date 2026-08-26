@@ -1,7 +1,28 @@
-cmake_minimum_required(VERSION 4.4.2)
+cmake_minimum_required(VERSION 4.2.3)
 project(NewSharpboyCore)
 
-add_library(NewSharpboyCore STATIC)
+add_executable(NewSharpboyCore)
+target_sources(NewSharpboyCore
+	PRIVATE 
+		src/main.cpp
+		src/core.cpp
+        src/loader.cpp
+		src/emu.cpp
+		src/cpu.cpp
+		src/bus.cpp
 
-target_sources(NewSharpboyCore PRIVATE src/core.cpp)
-target_include_directories(NewSharpboyCore PUBLIC "include")
+	PUBLIC 
+		FILE_SET coreHeaders
+		TYPE HEADERS
+		BASE_DIRS include	
+		FILES
+            include/core.h
+			include/common.h
+            include/loader.h
+            include/emu.h
+            include/cpu.h
+			include/registers.h
+			include/bus.h
+			include/io.h
+)
+set_property(TARGET NewSharpboyCore PROPERTY CXX_STANDARD 20)
