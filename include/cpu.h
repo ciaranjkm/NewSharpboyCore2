@@ -13,6 +13,10 @@ private:
     Registers m_registers;
     Flags m_flags;
 
+    //execution
+    int execute_opcode(u8 opcode);
+    int execute_prefix(u8 opcode);
+
     //8 bit load instructions
     int ld_r_r(u8& dest, u8 src);
     int ld_r_n(Bus& bus, u8& dest);
