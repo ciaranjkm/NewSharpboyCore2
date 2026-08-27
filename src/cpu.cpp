@@ -27,511 +27,268 @@ int CPU::execute_opcode(Bus& bus){
     int cycles_consumed = 0;
 
     switch (m_opcode){
-    case GBInstructions::NOOP:
-        break;
-    case GBInstructions::LD_BC_NN:
-        break;
-    case GBInstructions::LD_BC_A:
-        break;
-    case GBInstructions::INC_BC:
-        break;
-    case GBInstructions::INC_B:
-        break;
-    case GBInstructions::DEC_B:
-        break;
-    case GBInstructions::LD_B_N:
-        break;
-    case GBInstructions::RLCA:
-        break;
-    case GBInstructions::LD_NN_SP:
-        break;
-    case GBInstructions::ADD_HL_BC:
-        break;
-    case GBInstructions::LD_A_BC:
-        break;
-    case GBInstructions::DEC_BC:
-        break;
-    case GBInstructions::INC_C:
-        break;
-    case GBInstructions::DEC_C:
-        break;
-    case GBInstructions::LD_C_N:
-        break;
-    case GBInstructions::RRCA:
-        break;
+    case GBInstructions::NOOP: cycles_consumed += 4; return;
+    case GBInstructions::LD_BC_NN: cycles_consumed += ld_rr_nn(bus, BC); break;
+    case GBInstructions::LD_BC_A: cycles_consumed += ld_bc_a(bus); break;
+    case GBInstructions::INC_BC: cycles_consumed += inc_rr(bus, BC); break;
+    case GBInstructions::INC_B: cycles_consumed += inc_r(m_registers.b); break;
+    case GBInstructions::DEC_B: cycles_consumed += dec_r(m_registers.b); break;
+    case GBInstructions::LD_B_N: cycles_consumed += ld_r_n(bus, m_registers.b); break;
+    case GBInstructions::RLCA: cycles_consumed += rlca(); break;
+    case GBInstructions::LD_NN_SP: cycles_consumed += ld_nn_sp(bus); break;
+    case GBInstructions::ADD_HL_BC: cycles_consumed += add_hl_rr(bus, BC); break;
+    case GBInstructions::LD_A_BC: cycles_consumed += ld_a_bc(bus); break;
+    case GBInstructions::DEC_BC: cycles_consumed += dec_rr(bus, BC); break;
+    case GBInstructions::INC_C: cycles_consumed += inc_r(m_registers.c); break;
+    case GBInstructions::DEC_C: cycles_consumed += dec_r(m_registers.c); break;
+    case GBInstructions::LD_C_N: cycles_consumed += ld_r_n(bus, m_registers.c); break;
+    case GBInstructions::RRCA: cycles_consumed += rrca(); break;
 
     case GBInstructions::STOP_N:
-        break;
     case GBInstructions::LD_DE_NN:
-        break;
     case GBInstructions::LD_DE_A:
-        break;
     case GBInstructions::INC_DE:
-        break;
     case GBInstructions::INC_D:
-        break;
     case GBInstructions::DEC_D:
-        break;
     case GBInstructions::LD_D_N:
-        break;
     case GBInstructions::RLA:
-        break;
     case GBInstructions::JR_E:
-        break;
     case GBInstructions::ADD_HL_DE:
-        break;
     case GBInstructions::LD_A_DE:
-        break;
     case GBInstructions::DEC_DE:
-        break;
     case GBInstructions::INC_E:
-        break;
     case GBInstructions::DEC_E:
-        break;
     case GBInstructions::LD_E_N:
-        break;
     case GBInstructions::RRA:
-        break;
-
-    case GBInstructions::JR_NZ_E:
-        break;
+        
+    
+    case GBInstructions::JR_NZ_E:    
     case GBInstructions::LD_HL_NN:
-        break;
     case GBInstructions::LDI_HL_A:
-        break;
     case GBInstructions::INC_HL:
-        break;
     case GBInstructions::INC_H:
-        break;
     case GBInstructions::DEC_H:
-        break;
     case GBInstructions::LD_H_N:
-        break;
     case GBInstructions::DAA:
-        break;
     case GBInstructions::JR_Z_E:
-        break;
     case GBInstructions::ADD_HL_HL:
-        break;
     case GBInstructions::LD_A_HLI:
-        break;
     case GBInstructions::DEC_HL:
-        break;
     case GBInstructions::INC_L:
-        break;
     case GBInstructions::DEC_L:
-        break;
     case GBInstructions::LD_L_N:
-        break;
     case GBInstructions::CPL:
-        break;
-
+        
     case GBInstructions::JR_NC_E:
-        break;
     case GBInstructions::LD_SP_NN:
-        break;
     case GBInstructions::LDD_HL_A:
-        break;
     case GBInstructions::INC_SP:
-        break;
     case GBInstructions::INC_memHL:
-        break;
     case GBInstructions::DEC_memHL:
-        break;
     case GBInstructions::LD_HL_N:
-        break;
     case GBInstructions::SCF:
-        break;
     case GBInstructions::JR_C_E:
-        break;
     case GBInstructions::ADD_HL_SP:
-        break;
     case GBInstructions::LD_A_HLD:
-        break;
     case GBInstructions::DEC_SP:
-        break;
     case GBInstructions::INC_A:
-        break;
     case GBInstructions::DEC_A:
-        break;
     case GBInstructions::LD_A_N:
-        break;
     case GBInstructions::CCF:
-        break;
 
     case GBInstructions::LD_B_B:
-        break;
     case GBInstructions::LD_B_C:
-        break;
     case GBInstructions::LD_B_D:
-        break;
     case GBInstructions::LD_B_E:
-        break;
     case GBInstructions::LD_B_H:
-        break;
     case GBInstructions::LD_B_L:
-        break;
     case GBInstructions::LD_B_HL:
-        break;
     case GBInstructions::LD_B_A:
-        break;
     case GBInstructions::LD_C_B:
-        break;
     case GBInstructions::LD_C_C:
-        break;
     case GBInstructions::LD_C_D:
-        break;
     case GBInstructions::LD_C_E:
-        break;
     case GBInstructions::LD_C_H:
-        break;
     case GBInstructions::LD_C_L:
-        break;
     case GBInstructions::LD_C_HL:
-        break;
     case GBInstructions::LD_C_A:
-        break;
 
     case GBInstructions::LD_D_B:
-        break;
     case GBInstructions::LD_D_C:
-        break;
     case GBInstructions::LD_D_D:
-        break;
     case GBInstructions::LD_D_E:
-        break;
     case GBInstructions::LD_D_H:
-        break;
     case GBInstructions::LD_D_L:
-        break;
     case GBInstructions::LD_D_HL:
-        break;
     case GBInstructions::LD_D_A:
-        break;
     case GBInstructions::LD_E_B:
-        break;
     case GBInstructions::LD_E_C:
-        break;
     case GBInstructions::LD_E_D:
-        break;
     case GBInstructions::LD_E_E:
-        break;
     case GBInstructions::LD_E_H:
-        break;
     case GBInstructions::LD_E_L:
-        break;
     case GBInstructions::LD_E_HL:
-        break;
     case GBInstructions::LD_E_A:
-        break;
 
     case GBInstructions::LD_H_B:
-        break;
     case GBInstructions::LD_H_C:
-        break;
     case GBInstructions::LD_H_D:
-        break;
     case GBInstructions::LD_H_E:
-        break;
     case GBInstructions::LD_H_H:
-        break;
     case GBInstructions::LD_H_L:
-        break;
     case GBInstructions::LD_H_HL:
-        break;
     case GBInstructions::LD_H_A:
-        break;
     case GBInstructions::LD_L_B:
-        break;
     case GBInstructions::LD_L_C:
-        break;
     case GBInstructions::LD_L_D:
-        break;
     case GBInstructions::LD_L_E:
-        break;
     case GBInstructions::LD_L_H:
-        break;
     case GBInstructions::LD_L_L:
-        break;
     case GBInstructions::LD_L_HL:
-        break;
     case GBInstructions::LD_L_A:
-        break;
-
-    case GBInstructions::LD_HL_B:
-        break;
+    
+    case GBInstructions::LD_HL_B:    
     case GBInstructions::LD_HL_C:
-        break;
     case GBInstructions::LD_HL_D:
-        break;
     case GBInstructions::LD_HL_E:
-        break;
     case GBInstructions::LD_HL_H:
-        break;
     case GBInstructions::LD_HL_L:
-        break;
     case GBInstructions::HALT:
-        break;
     case GBInstructions::LD_HL_A:
-        break;
     case GBInstructions::LD_A_B:
-        break;
     case GBInstructions::LD_A_C:
-        break;
     case GBInstructions::LD_A_D:
-        break;
     case GBInstructions::LD_A_E:
-        break;
     case GBInstructions::LD_A_H:
-        break;
     case GBInstructions::LD_A_L:
-        break;
     case GBInstructions::LD_A_HL:
-        break;
     case GBInstructions::LD_A_A:
-        break;
 
     case GBInstructions::ADD_A_B:
-        break;
     case GBInstructions::ADD_A_C:
-        break;
     case GBInstructions::ADD_A_D:
-        break;
     case GBInstructions::ADD_A_E:
-        break;
     case GBInstructions::ADD_A_H:
-        break;
     case GBInstructions::ADD_A_L:
-        break;
     case GBInstructions::ADD_A_HL:
-        break;
     case GBInstructions::ADD_A_A:
-        break;
     case GBInstructions::ADC_A_B:
-        break;
     case GBInstructions::ADC_A_C:
-        break;
     case GBInstructions::ADC_A_D:
-        break;
     case GBInstructions::ADC_A_E:
-        break;
     case GBInstructions::ADC_A_H:
-        break;
     case GBInstructions::ADC_A_L:
-        break;
     case GBInstructions::ADC_A_HL:
-        break;
     case GBInstructions::ADC_A_A:
-        break;
 
     case GBInstructions::SUB_A_B:
-        break;
     case GBInstructions::SUB_A_C:
-        break;
     case GBInstructions::SUB_A_D:
-        break;
     case GBInstructions::SUB_A_E:
-        break;
     case GBInstructions::SUB_A_H:
-        break;
     case GBInstructions::SUB_A_L:
-        break;
     case GBInstructions::SUB_A_HL:
-        break;
     case GBInstructions::SUB_A_A:
-        break;
     case GBInstructions::SBC_A_B:
-        break;
     case GBInstructions::SBC_A_C:
-        break;
-    case GBInstructions::SBC_A_D:
-        break;
-    case GBInstructions::SBC_A_E:
-        break;
+    case GBInstructions::SBC_A_D:    
+    case GBInstructions::SBC_A_E:    
     case GBInstructions::SBC_A_H:
-        break;
     case GBInstructions::SBC_A_L:
-        break;
     case GBInstructions::SBC_A_HL:
-        break;
     case GBInstructions::SBC_A_A:
-        break;
 
     case GBInstructions::AND_A_B:
-        break;
     case GBInstructions::AND_A_C:
-        break;
     case GBInstructions::AND_A_D:
-        break;
     case GBInstructions::AND_A_E:
-        break;
     case GBInstructions::AND_A_H:
-        break;
     case GBInstructions::AND_A_L:
-        break;
     case GBInstructions::AND_A_HL:
-        break;
     case GBInstructions::AND_A_A:
-        break;
     case GBInstructions::XOR_A_B:
-        break;
     case GBInstructions::XOR_A_C:
-        break;
     case GBInstructions::XOR_A_D:
-        break;
     case GBInstructions::XOR_A_E:
-        break;
     case GBInstructions::XOR_A_H:
-        break;
     case GBInstructions::XOR_A_L:
-        break;
     case GBInstructions::XOR_A_HL:
-        break;
     case GBInstructions::XOR_A_A:
-        break;
 
     case GBInstructions::OR_A_B:
-        break;
     case GBInstructions::OR_A_C:
-        break;
     case GBInstructions::OR_A_D:
-        break;
     case GBInstructions::OR_A_E:
-        break;
     case GBInstructions::OR_A_H:
-        break;
     case GBInstructions::OR_A_L:
-        break;
     case GBInstructions::OR_A_HL:
-        break;
     case GBInstructions::OR_A_A:
-        break;
     case GBInstructions::CP_A_B:
-        break;
     case GBInstructions::CP_A_C:
-        break;
     case GBInstructions::CP_A_D:
-        break;
     case GBInstructions::CP_A_E:
-        break;
     case GBInstructions::CP_A_H:
-        break;
     case GBInstructions::CP_A_L:
-        break;
     case GBInstructions::CP_A_HL:
-        break;
     case GBInstructions::CP_A_A:
-        break;
 
     case GBInstructions::RET_NZ:
-        break;
     case GBInstructions::POP_BC:
-        break;
     case GBInstructions::JP_NZ_NN:
-        break;
     case GBInstructions::JP_NN:
-        break;
     case GBInstructions::CALL_NZ_NN:
-        break;
     case GBInstructions::PUSH_BC:
-        break;
     case GBInstructions::ADD_A_N:
-        break;
     case GBInstructions::RST_00:
-        break;
     case GBInstructions::RET_Z:
-        break;
     case GBInstructions::RET:
-        break;
-    case GBInstructions::JP_Z_NN:
-        break;
+    case GBInstructions::JP_Z_NN:        
     case GBInstructions::CB:
-        break;
     case GBInstructions::CALL_Z_NN:
-        break;
     case GBInstructions::CALL_NN:
-        break;
     case GBInstructions::ADC_A_N:
-        break;
     case GBInstructions::RST_08:
-        break;
+        
 
     case GBInstructions::RET_NC:
-        break;
     case GBInstructions::POP_DE:
-        break;
     case GBInstructions::JP_NC_NN:
-        break;
     case GBInstructions::CALL_NC_NN:
-        break;
     case GBInstructions::PUSH_DE:
-        break;
     case GBInstructions::SUB_A_N:
-        break;
     case GBInstructions::RST_10:
-        break;
     case GBInstructions::RET_C:
-        break;
     case GBInstructions::RETI:
-        break;
     case GBInstructions::JP_C_NN:
-        break;
     case GBInstructions::CALL_C_NN:
-        break;
     case GBInstructions::SBC_A_N:
-        break;
     case GBInstructions::RST_18:
-        break;
 
     case GBInstructions::LDH_N_A:
-        break;
     case GBInstructions::POP_HL:
-        break;
     case GBInstructions::LDH_C_A:
-        break;
     case GBInstructions::PUSH_HL:
-        break;
     case GBInstructions::AND_A_N:
-        break;
     case GBInstructions::RST_20:
-        break;
     case GBInstructions::ADD_SP_E:
-        break;
     case GBInstructions::JP_HL:
-        break;
     case GBInstructions::LD_NN_A:
-        break;
     case GBInstructions::XOR_A_N:
-        break;
     case GBInstructions::RST_28:
-        break;
 
     case GBInstructions::LDH_A_N:
-        break;
     case GBInstructions::POP_AF:
-        break;
     case GBInstructions::LDH_A_C:
-        break;
     case GBInstructions::DI:
-        break;
     case GBInstructions::PUSH_AF:
-        break;
     case GBInstructions::OR_A_N:
-        break;
     case GBInstructions::RST_30:
-        break;
     case GBInstructions::LD_HL_SP_E:
-        break;
     case GBInstructions::LD_SP_HL:
-        break;
     case GBInstructions::LD_A_NN:
-        break;
     case GBInstructions::EI:
-        break;
     case GBInstructions::CP_A_N:
-        break;
     case GBInstructions::RST_38:
-        break;
 
     default:
         std::cerr << std::format("[ERROR @ CPU::run()] Invalid opcode, {:x2}\n", m_opcode);
@@ -545,548 +302,548 @@ int CPU::execute_prefix(Bus& bus){
 
     switch (m_opcode) {
     case GBPrefixedInstructions::CB_RLC_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RLC_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RLC_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RLC_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RLC_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RLC_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RLC_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RLC_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RRC_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RRC_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RRC_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RRC_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RRC_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RRC_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RRC_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RRC_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RL_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RL_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RL_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RL_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RL_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RL_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RL_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RL_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RR_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RR_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RR_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RR_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RR_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RR_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RR_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RR_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SLA_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SLA_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SLA_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SLA_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SLA_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SLA_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SLA_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SLA_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SRA_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SRA_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SRA_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SRA_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SRA_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SRA_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SRA_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SRA_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SWAP_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SWAP_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SWAP_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SWAP_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SWAP_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SWAP_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SWAP_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SWAP_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SRL_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SRL_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SRL_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SRL_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SRL_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SRL_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SRL_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SRL_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT0_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT0_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT0_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT0_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT0_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT0_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT0_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT0_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT1_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT1_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT1_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT1_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT1_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT1_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT1_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT1_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT2_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT2_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT2_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT2_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT2_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT2_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT2_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT2_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT3_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT3_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT3_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT3_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT3_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT3_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT3_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT3_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT4_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT4_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT4_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT4_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT4_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT4_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT4_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT4_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT5_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT5_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT5_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT5_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT5_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT5_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT5_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT5_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT6_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT6_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT6_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT6_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT6_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT6_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT6_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT6_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_BIT7_B:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT7_C:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT7_D:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT7_E:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT7_H:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT7_L:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT7_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_BIT7_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES0_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES0_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES0_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES0_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES0_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES0_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES0_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES0_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES1_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES1_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES1_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES1_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES1_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES1_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES1_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES1_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES2_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES2_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES2_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES2_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES2_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES2_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES2_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES2_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES3_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES3_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES3_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES3_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES3_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES3_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES3_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES3_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES4_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES4_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES4_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES4_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES4_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES4_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES4_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES4_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES5_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES5_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES5_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES5_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES5_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES5_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES5_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES5_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES6_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES6_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES6_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES6_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES6_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES6_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES6_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES6_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_RES7_B:
-        break;
+        
     case GBPrefixedInstructions::CB_RES7_C:
-        break;
+        
     case GBPrefixedInstructions::CB_RES7_D:
-        break;
+        
     case GBPrefixedInstructions::CB_RES7_E:
-        break;
+        
     case GBPrefixedInstructions::CB_RES7_H:
-        break;
+        
     case GBPrefixedInstructions::CB_RES7_L:
-        break;
+        
     case GBPrefixedInstructions::CB_RES7_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_RES7_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET0_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET0_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET0_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET0_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET0_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET0_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET0_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET0_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET1_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET1_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET1_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET1_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET1_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET1_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET1_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET1_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET2_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET2_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET2_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET2_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET2_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET2_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET2_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET2_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET3_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET3_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET3_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET3_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET3_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET3_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET3_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET3_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET4_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET4_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET4_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET4_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET4_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET4_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET4_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET4_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET5_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET5_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET5_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET5_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET5_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET5_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET5_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET5_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET6_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET6_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET6_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET6_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET6_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET6_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET6_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET6_A:
-        break;
+        
 
     case GBPrefixedInstructions::CB_SET7_B:
-        break;
+        
     case GBPrefixedInstructions::CB_SET7_C:
-        break;
+        
     case GBPrefixedInstructions::CB_SET7_D:
-        break;
+        
     case GBPrefixedInstructions::CB_SET7_E:
-        break;
+        
     case GBPrefixedInstructions::CB_SET7_H:
-        break;
+        
     case GBPrefixedInstructions::CB_SET7_L:
-        break;
+        
     case GBPrefixedInstructions::CB_SET7_HL:
-        break;
+        
     case GBPrefixedInstructions::CB_SET7_A:
-        break;
+        
 
     default:
         std::cerr << std::format("[ERROR @ CPU::run()] Invalid opcode, {:x2}\n", m_opcode);
