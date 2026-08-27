@@ -300,549 +300,294 @@ int CPU::execute_prefix(Bus& bus){
     int cycles_consumed = 0;
 
     switch (m_opcode) {
-    case GBPrefixedInstructions::CB_RLC_B:
-        
-    case GBPrefixedInstructions::CB_RLC_C:
-        
-    case GBPrefixedInstructions::CB_RLC_D:
-        
-    case GBPrefixedInstructions::CB_RLC_E:
-        
-    case GBPrefixedInstructions::CB_RLC_H:
-        
-    case GBPrefixedInstructions::CB_RLC_L:
-        
-    case GBPrefixedInstructions::CB_RLC_HL:
-        
-    case GBPrefixedInstructions::CB_RLC_A:
+    case GBPrefixedInstructions::CB_RLC_B: cycles_consumed += rlc_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RLC_C: cycles_consumed += rlc_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RLC_D: cycles_consumed += rlc_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RLC_E: cycles_consumed += rlc_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RLC_H: cycles_consumed += rlc_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RLC_L: cycles_consumed += rlc_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RLC_HL: cycles_consumed += rlc_hl(bus); break;
+    case GBPrefixedInstructions::CB_RLC_A: cycles_consumed += rlc_r(m_registers.b); break;
+
+    case GBPrefixedInstructions::CB_RRC_B: cycles_consumed += rrc_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RRC_C: cycles_consumed += rrc_r(m_registers.c); break;
+    case GBPrefixedInstructions::CB_RRC_D: cycles_consumed += rrc_r(m_registers.d); break;
+    case GBPrefixedInstructions::CB_RRC_E: cycles_consumed += rrc_r(m_registers.e); break;
+    case GBPrefixedInstructions::CB_RRC_H: cycles_consumed += rrc_r(m_registers.h); break;
+    case GBPrefixedInstructions::CB_RRC_L: cycles_consumed += rrc_r(m_registers.l); break;
+    case GBPrefixedInstructions::CB_RRC_HL: cycles_consumed += rrc_hl(bus); break;
+    case GBPrefixedInstructions::CB_RRC_A: cycles_consumed += rrc_r(m_registers.a); break;
         
 
-    case GBPrefixedInstructions::CB_RRC_B:
-        
-    case GBPrefixedInstructions::CB_RRC_C:
-        
-    case GBPrefixedInstructions::CB_RRC_D:
-        
-    case GBPrefixedInstructions::CB_RRC_E:
-        
-    case GBPrefixedInstructions::CB_RRC_H:
-        
-    case GBPrefixedInstructions::CB_RRC_L:
-        
-    case GBPrefixedInstructions::CB_RRC_HL:
-        
-    case GBPrefixedInstructions::CB_RRC_A:
-        
+    case GBPrefixedInstructions::CB_RL_B: cycles_consumed += rl_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RL_C: cycles_consumed += rl_r(m_registers.c); break;
+    case GBPrefixedInstructions::CB_RL_D: cycles_consumed += rl_r(m_registers.d); break;
+    case GBPrefixedInstructions::CB_RL_E: cycles_consumed += rl_r(m_registers.e); break;
+    case GBPrefixedInstructions::CB_RL_H: cycles_consumed += rl_r(m_registers.h); break;
+    case GBPrefixedInstructions::CB_RL_L: cycles_consumed += rl_r(m_registers.l); break;
+    case GBPrefixedInstructions::CB_RL_HL: cycles_consumed += rl_hl(bus); break;
+    case GBPrefixedInstructions::CB_RL_A: cycles_consumed += rl_r(m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RL_B:
-        
-    case GBPrefixedInstructions::CB_RL_C:
-        
-    case GBPrefixedInstructions::CB_RL_D:
-        
-    case GBPrefixedInstructions::CB_RL_E:
-        
-    case GBPrefixedInstructions::CB_RL_H:
-        
-    case GBPrefixedInstructions::CB_RL_L:
-        
-    case GBPrefixedInstructions::CB_RL_HL:
-        
-    case GBPrefixedInstructions::CB_RL_A:
-        
+    case GBPrefixedInstructions::CB_RR_B: cycles_consumed += rr_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_RR_C: cycles_consumed += rr_r(m_registers.c); break;
+    case GBPrefixedInstructions::CB_RR_D: cycles_consumed += rr_r(m_registers.d); break;
+    case GBPrefixedInstructions::CB_RR_E: cycles_consumed += rr_r(m_registers.e); break;
+    case GBPrefixedInstructions::CB_RR_H: cycles_consumed += rr_r(m_registers.h); break;
+    case GBPrefixedInstructions::CB_RR_L: cycles_consumed += rr_r(m_registers.l); break;
+    case GBPrefixedInstructions::CB_RR_HL: cycles_consumed += rr_hl(bus); break;
+    case GBPrefixedInstructions::CB_RR_A: cycles_consumed += rr_r(m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RR_B:
-        
-    case GBPrefixedInstructions::CB_RR_C:
-        
-    case GBPrefixedInstructions::CB_RR_D:
-        
-    case GBPrefixedInstructions::CB_RR_E:
-        
-    case GBPrefixedInstructions::CB_RR_H:
-        
-    case GBPrefixedInstructions::CB_RR_L:
-        
-    case GBPrefixedInstructions::CB_RR_HL:
-        
-    case GBPrefixedInstructions::CB_RR_A:
-        
+    case GBPrefixedInstructions::CB_SLA_B: cycles_consumed += sla_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_SLA_C: cycles_consumed += sla_r(m_registers.c); break;
+    case GBPrefixedInstructions::CB_SLA_D: cycles_consumed += sla_r(m_registers.d); break;
+    case GBPrefixedInstructions::CB_SLA_E: cycles_consumed += sla_r(m_registers.e); break;
+    case GBPrefixedInstructions::CB_SLA_H: cycles_consumed += sla_r(m_registers.h); break;
+    case GBPrefixedInstructions::CB_SLA_L: cycles_consumed += sla_r(m_registers.l); break;
+    case GBPrefixedInstructions::CB_SLA_HL: cycles_consumed += sla_hl(bus); break;
+    case GBPrefixedInstructions::CB_SLA_A: cycles_consumed += sla_r(m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_SLA_B:
-        
-    case GBPrefixedInstructions::CB_SLA_C:
-        
-    case GBPrefixedInstructions::CB_SLA_D:
-        
-    case GBPrefixedInstructions::CB_SLA_E:
-        
-    case GBPrefixedInstructions::CB_SLA_H:
-        
-    case GBPrefixedInstructions::CB_SLA_L:
-        
-    case GBPrefixedInstructions::CB_SLA_HL:
-        
-    case GBPrefixedInstructions::CB_SLA_A:
-        
+    case GBPrefixedInstructions::CB_SRA_B: cycles_consumed += sra_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_SRA_C: cycles_consumed += sra_r(m_registers.c); break;
+    case GBPrefixedInstructions::CB_SRA_D: cycles_consumed += sra_r(m_registers.d); break;
+    case GBPrefixedInstructions::CB_SRA_E: cycles_consumed += sra_r(m_registers.e); break;
+    case GBPrefixedInstructions::CB_SRA_H: cycles_consumed += sra_r(m_registers.h); break;
+    case GBPrefixedInstructions::CB_SRA_L: cycles_consumed += sra_r(m_registers.l); break;
+    case GBPrefixedInstructions::CB_SRA_HL: cycles_consumed += sra_hl(bus); break;
+    case GBPrefixedInstructions::CB_SRA_A: cycles_consumed += sra_r(m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_SRA_B:
-        
-    case GBPrefixedInstructions::CB_SRA_C:
-        
-    case GBPrefixedInstructions::CB_SRA_D:
-        
-    case GBPrefixedInstructions::CB_SRA_E:
-        
-    case GBPrefixedInstructions::CB_SRA_H:
-        
-    case GBPrefixedInstructions::CB_SRA_L:
-        
-    case GBPrefixedInstructions::CB_SRA_HL:
-        
-    case GBPrefixedInstructions::CB_SRA_A:
-        
+    case GBPrefixedInstructions::CB_SWAP_B: cycles_consumed += swap_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_SWAP_C: cycles_consumed += swap_r(m_registers.c); break;
+    case GBPrefixedInstructions::CB_SWAP_D: cycles_consumed += swap_r(m_registers.d); break;
+    case GBPrefixedInstructions::CB_SWAP_E: cycles_consumed += swap_r(m_registers.e); break;
+    case GBPrefixedInstructions::CB_SWAP_H: cycles_consumed += swap_r(m_registers.h); break;
+    case GBPrefixedInstructions::CB_SWAP_L: cycles_consumed += swap_r(m_registers.l); break;
+    case GBPrefixedInstructions::CB_SWAP_HL: cycles_consumed += swap_hl(bus); break;
+    case GBPrefixedInstructions::CB_SWAP_A: cycles_consumed += swap_r(m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_SWAP_B:
-        
-    case GBPrefixedInstructions::CB_SWAP_C:
-        
-    case GBPrefixedInstructions::CB_SWAP_D:
-        
-    case GBPrefixedInstructions::CB_SWAP_E:
-        
-    case GBPrefixedInstructions::CB_SWAP_H:
-        
-    case GBPrefixedInstructions::CB_SWAP_L:
-        
-    case GBPrefixedInstructions::CB_SWAP_HL:
-        
-    case GBPrefixedInstructions::CB_SWAP_A:
-        
+    case GBPrefixedInstructions::CB_SRL_B: cycles_consumed += srl_r(m_registers.b); break;
+    case GBPrefixedInstructions::CB_SRL_C: cycles_consumed += srl_r(m_registers.c); break;
+    case GBPrefixedInstructions::CB_SRL_D: cycles_consumed += srl_r(m_registers.d); break;
+    case GBPrefixedInstructions::CB_SRL_E: cycles_consumed += srl_r(m_registers.e); break;
+    case GBPrefixedInstructions::CB_SRL_H: cycles_consumed += srl_r(m_registers.h); break;
+    case GBPrefixedInstructions::CB_SRL_L: cycles_consumed += srl_r(m_registers.l); break;
+    case GBPrefixedInstructions::CB_SRL_HL: cycles_consumed += srl_hl(bus); break;
+    case GBPrefixedInstructions::CB_SRL_A: cycles_consumed += srl_r(m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_SRL_B:
-        
-    case GBPrefixedInstructions::CB_SRL_C:
-        
-    case GBPrefixedInstructions::CB_SRL_D:
-        
-    case GBPrefixedInstructions::CB_SRL_E:
-        
-    case GBPrefixedInstructions::CB_SRL_H:
-        
-    case GBPrefixedInstructions::CB_SRL_L:
-        
-    case GBPrefixedInstructions::CB_SRL_HL:
-        
-    case GBPrefixedInstructions::CB_SRL_A:
-        
+    case GBPrefixedInstructions::CB_BIT0_B: cycles_consumed += bit_b_r(0, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT0_C: cycles_consumed += bit_b_r(0, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT0_D: cycles_consumed += bit_b_r(0, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT0_E: cycles_consumed += bit_b_r(0, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT0_H: cycles_consumed += bit_b_r(0, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT0_L: cycles_consumed += bit_b_r(0, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT0_HL: cycles_consumed += bit_b_hl(bus, 0); break;
+    case GBPrefixedInstructions::CB_BIT0_A: cycles_consumed += bit_b_r(0, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT0_B:
-        
-    case GBPrefixedInstructions::CB_BIT0_C:
-        
-    case GBPrefixedInstructions::CB_BIT0_D:
-        
-    case GBPrefixedInstructions::CB_BIT0_E:
-        
-    case GBPrefixedInstructions::CB_BIT0_H:
-        
-    case GBPrefixedInstructions::CB_BIT0_L:
-        
-    case GBPrefixedInstructions::CB_BIT0_HL:
-        
-    case GBPrefixedInstructions::CB_BIT0_A:
-        
+    case GBPrefixedInstructions::CB_BIT1_B: cycles_consumed += bit_b_r(1, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT1_C: cycles_consumed += bit_b_r(1, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT1_D: cycles_consumed += bit_b_r(1, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT1_E: cycles_consumed += bit_b_r(1, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT1_H: cycles_consumed += bit_b_r(1, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT1_L: cycles_consumed += bit_b_r(1, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT1_HL: cycles_consumed += bit_b_hl(bus, 1); break;
+    case GBPrefixedInstructions::CB_BIT1_A: cycles_consumed += bit_b_r(1, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT1_B:
-        
-    case GBPrefixedInstructions::CB_BIT1_C:
-        
-    case GBPrefixedInstructions::CB_BIT1_D:
-        
-    case GBPrefixedInstructions::CB_BIT1_E:
-        
-    case GBPrefixedInstructions::CB_BIT1_H:
-        
-    case GBPrefixedInstructions::CB_BIT1_L:
-        
-    case GBPrefixedInstructions::CB_BIT1_HL:
-        
-    case GBPrefixedInstructions::CB_BIT1_A:
-        
+    case GBPrefixedInstructions::CB_BIT2_B: cycles_consumed += bit_b_r(2, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT2_C: cycles_consumed += bit_b_r(2, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT2_D: cycles_consumed += bit_b_r(2, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT2_E: cycles_consumed += bit_b_r(2, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT2_H: cycles_consumed += bit_b_r(2, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT2_L: cycles_consumed += bit_b_r(2, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT2_HL: cycles_consumed += bit_b_hl(bus, 2); break;
+    case GBPrefixedInstructions::CB_BIT2_A: cycles_consumed += bit_b_r(2, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT2_B:
-        
-    case GBPrefixedInstructions::CB_BIT2_C:
-        
-    case GBPrefixedInstructions::CB_BIT2_D:
-        
-    case GBPrefixedInstructions::CB_BIT2_E:
-        
-    case GBPrefixedInstructions::CB_BIT2_H:
-        
-    case GBPrefixedInstructions::CB_BIT2_L:
-        
-    case GBPrefixedInstructions::CB_BIT2_HL:
-        
-    case GBPrefixedInstructions::CB_BIT2_A:
-        
+    case GBPrefixedInstructions::CB_BIT3_B: cycles_consumed += bit_b_r(3, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT3_C: cycles_consumed += bit_b_r(3, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT3_D: cycles_consumed += bit_b_r(3, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT3_E: cycles_consumed += bit_b_r(3, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT3_H: cycles_consumed += bit_b_r(3, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT3_L: cycles_consumed += bit_b_r(3, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT3_HL: cycles_consumed += bit_b_hl(bus, 3); break;
+    case GBPrefixedInstructions::CB_BIT3_A: cycles_consumed += bit_b_r(3, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT3_B:
-        
-    case GBPrefixedInstructions::CB_BIT3_C:
-        
-    case GBPrefixedInstructions::CB_BIT3_D:
-        
-    case GBPrefixedInstructions::CB_BIT3_E:
-        
-    case GBPrefixedInstructions::CB_BIT3_H:
-        
-    case GBPrefixedInstructions::CB_BIT3_L:
-        
-    case GBPrefixedInstructions::CB_BIT3_HL:
-        
-    case GBPrefixedInstructions::CB_BIT3_A:
-        
+    case GBPrefixedInstructions::CB_BIT4_B: cycles_consumed += bit_b_r(4, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT4_C: cycles_consumed += bit_b_r(4, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT4_D: cycles_consumed += bit_b_r(4, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT4_E: cycles_consumed += bit_b_r(4, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT4_H: cycles_consumed += bit_b_r(4, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT4_L: cycles_consumed += bit_b_r(4, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT4_HL: cycles_consumed += bit_b_hl(bus, 4); break;
+    case GBPrefixedInstructions::CB_BIT4_A: cycles_consumed += bit_b_r(4, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT4_B:
-        
-    case GBPrefixedInstructions::CB_BIT4_C:
-        
-    case GBPrefixedInstructions::CB_BIT4_D:
-        
-    case GBPrefixedInstructions::CB_BIT4_E:
-        
-    case GBPrefixedInstructions::CB_BIT4_H:
-        
-    case GBPrefixedInstructions::CB_BIT4_L:
-        
-    case GBPrefixedInstructions::CB_BIT4_HL:
-        
-    case GBPrefixedInstructions::CB_BIT4_A:
-        
+    case GBPrefixedInstructions::CB_BIT5_B: cycles_consumed += bit_b_r(5, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT5_C: cycles_consumed += bit_b_r(5, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT5_D: cycles_consumed += bit_b_r(5, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT5_E: cycles_consumed += bit_b_r(5, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT5_H: cycles_consumed += bit_b_r(5, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT5_L: cycles_consumed += bit_b_r(5, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT5_HL: cycles_consumed += bit_b_hl(bus, 5); break;
+    case GBPrefixedInstructions::CB_BIT5_A: cycles_consumed += bit_b_r(5, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT5_B:
-        
-    case GBPrefixedInstructions::CB_BIT5_C:
-        
-    case GBPrefixedInstructions::CB_BIT5_D:
-        
-    case GBPrefixedInstructions::CB_BIT5_E:
-        
-    case GBPrefixedInstructions::CB_BIT5_H:
-        
-    case GBPrefixedInstructions::CB_BIT5_L:
-        
-    case GBPrefixedInstructions::CB_BIT5_HL:
-        
-    case GBPrefixedInstructions::CB_BIT5_A:
-        
+    case GBPrefixedInstructions::CB_BIT6_B: cycles_consumed += bit_b_r(6, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT6_C: cycles_consumed += bit_b_r(6, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT6_D: cycles_consumed += bit_b_r(6, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT6_E: cycles_consumed += bit_b_r(6, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT6_H: cycles_consumed += bit_b_r(6, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT6_L: cycles_consumed += bit_b_r(6, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT6_HL: cycles_consumed += bit_b_hl(bus, 6); break;
+    case GBPrefixedInstructions::CB_BIT6_A: cycles_consumed += bit_b_r(6, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT6_B:
-        
-    case GBPrefixedInstructions::CB_BIT6_C:
-        
-    case GBPrefixedInstructions::CB_BIT6_D:
-        
-    case GBPrefixedInstructions::CB_BIT6_E:
-        
-    case GBPrefixedInstructions::CB_BIT6_H:
-        
-    case GBPrefixedInstructions::CB_BIT6_L:
-        
-    case GBPrefixedInstructions::CB_BIT6_HL:
-        
-    case GBPrefixedInstructions::CB_BIT6_A:
-        
+    case GBPrefixedInstructions::CB_BIT7_B: cycles_consumed += bit_b_r(7, m_registers.b); break;
+    case GBPrefixedInstructions::CB_BIT7_C: cycles_consumed += bit_b_r(7, m_registers.c); break;
+    case GBPrefixedInstructions::CB_BIT7_D: cycles_consumed += bit_b_r(7, m_registers.d); break;
+    case GBPrefixedInstructions::CB_BIT7_E: cycles_consumed += bit_b_r(7, m_registers.e); break;
+    case GBPrefixedInstructions::CB_BIT7_H: cycles_consumed += bit_b_r(7, m_registers.h); break;
+    case GBPrefixedInstructions::CB_BIT7_L: cycles_consumed += bit_b_r(7, m_registers.l); break;
+    case GBPrefixedInstructions::CB_BIT7_HL: cycles_consumed += bit_b_hl(bus, 7); break;
+    case GBPrefixedInstructions::CB_BIT7_A: cycles_consumed += bit_b_r(7, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_BIT7_B:
-        
-    case GBPrefixedInstructions::CB_BIT7_C:
-        
-    case GBPrefixedInstructions::CB_BIT7_D:
-        
-    case GBPrefixedInstructions::CB_BIT7_E:
-        
-    case GBPrefixedInstructions::CB_BIT7_H:
-        
-    case GBPrefixedInstructions::CB_BIT7_L:
-        
-    case GBPrefixedInstructions::CB_BIT7_HL:
-        
-    case GBPrefixedInstructions::CB_BIT7_A:
-        
+    case GBPrefixedInstructions::CB_RES0_B: cycles_consumed += res_b_r(0, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES0_C: cycles_consumed += res_b_r(0, m_registers.c); break;
+    case GBPrefixedInstructions::CB_RES0_D: cycles_consumed += res_b_r(0, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES0_E: cycles_consumed += res_b_r(0, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES0_H: cycles_consumed += res_b_r(0, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES0_L: cycles_consumed += res_b_r(0, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES0_HL: cycles_consumed += res_b_hl(bus, 0); break;
+    case GBPrefixedInstructions::CB_RES0_A: cycles_consumed += res_b_r(0, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES0_B:
-        
-    case GBPrefixedInstructions::CB_RES0_C:
-        
-    case GBPrefixedInstructions::CB_RES0_D:
-        
-    case GBPrefixedInstructions::CB_RES0_E:
-        
-    case GBPrefixedInstructions::CB_RES0_H:
-        
-    case GBPrefixedInstructions::CB_RES0_L:
-        
-    case GBPrefixedInstructions::CB_RES0_HL:
-        
-    case GBPrefixedInstructions::CB_RES0_A:
-        
+    case GBPrefixedInstructions::CB_RES1_B: cycles_consumed += res_b_r(1, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES1_C: cycles_consumed += res_b_r(1, m_registers.c); break;
+    case GBPrefixedInstructions::CB_RES1_D: cycles_consumed += res_b_r(1, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES1_E: cycles_consumed += res_b_r(1, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES1_H: cycles_consumed += res_b_r(1, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES1_L: cycles_consumed += res_b_r(1, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES1_HL: cycles_consumed += res_b_hl(bus, 1); break;
+    case GBPrefixedInstructions::CB_RES1_A: cycles_consumed += res_b_r(1, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES1_B:
-        
-    case GBPrefixedInstructions::CB_RES1_C:
-        
-    case GBPrefixedInstructions::CB_RES1_D:
-        
-    case GBPrefixedInstructions::CB_RES1_E:
-        
-    case GBPrefixedInstructions::CB_RES1_H:
-        
-    case GBPrefixedInstructions::CB_RES1_L:
-        
-    case GBPrefixedInstructions::CB_RES1_HL:
-        
-    case GBPrefixedInstructions::CB_RES1_A:
-        
+    case GBPrefixedInstructions::CB_RES2_B: cycles_consumed += res_b_r(2, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES2_C: cycles_consumed += res_b_r(2, m_registers.c); break;
+    case GBPrefixedInstructions::CB_RES2_D: cycles_consumed += res_b_r(2, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES2_E: cycles_consumed += res_b_r(2, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES2_H: cycles_consumed += res_b_r(2, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES2_L: cycles_consumed += res_b_r(2, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES2_HL: cycles_consumed += res_b_hl(bus, 2); break;
+    case GBPrefixedInstructions::CB_RES2_A: cycles_consumed += res_b_r(2, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES2_B:
-        
-    case GBPrefixedInstructions::CB_RES2_C:
-        
-    case GBPrefixedInstructions::CB_RES2_D:
-        
-    case GBPrefixedInstructions::CB_RES2_E:
-        
-    case GBPrefixedInstructions::CB_RES2_H:
-        
-    case GBPrefixedInstructions::CB_RES2_L:
-        
-    case GBPrefixedInstructions::CB_RES2_HL:
-        
-    case GBPrefixedInstructions::CB_RES2_A:
-        
+    case GBPrefixedInstructions::CB_RES3_B: cycles_consumed += res_b_r(3, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES3_C: cycles_consumed += res_b_r(3, m_registers.c); break;
+    case GBPrefixedInstructions::CB_RES3_D: cycles_consumed += res_b_r(3, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES3_E: cycles_consumed += res_b_r(3, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES3_H: cycles_consumed += res_b_r(3, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES3_L: cycles_consumed += res_b_r(3, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES3_HL: cycles_consumed += res_b_hl(bus, 3); break;
+    case GBPrefixedInstructions::CB_RES3_A: cycles_consumed += res_b_r(3, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES3_B:
+    case GBPrefixedInstructions::CB_RES4_B: cycles_consumed += res_b_r(4, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES4_C: cycles_consumed += res_b_r(4, m_registers.c); break;
+    case GBPrefixedInstructions::CB_RES4_D: cycles_consumed += res_b_r(4, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES4_E: cycles_consumed += res_b_r(4, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES4_H: cycles_consumed += res_b_r(4, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES4_L: cycles_consumed += res_b_r(4, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES4_HL: cycles_consumed += res_b_hl(bus, 4); break;
+    case GBPrefixedInstructions::CB_RES4_A: cycles_consumed += res_b_r(4, m_registers.a); break;
         
-    case GBPrefixedInstructions::CB_RES3_C:
-        
-    case GBPrefixedInstructions::CB_RES3_D:
-        
-    case GBPrefixedInstructions::CB_RES3_E:
-        
-    case GBPrefixedInstructions::CB_RES3_H:
-        
-    case GBPrefixedInstructions::CB_RES3_L:
-        
-    case GBPrefixedInstructions::CB_RES3_HL:
-        
-    case GBPrefixedInstructions::CB_RES3_A:
-        
+    case GBPrefixedInstructions::CB_RES5_B: cycles_consumed += res_b_r(5, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES5_C: cycles_consumed += res_b_r(5, m_registers.c); break;
+    case GBPrefixedInstructions::CB_RES5_D: cycles_consumed += res_b_r(5, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES5_E: cycles_consumed += res_b_r(5, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES5_H: cycles_consumed += res_b_r(5, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES5_L: cycles_consumed += res_b_r(5, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES5_HL: cycles_consumed += res_b_hl(bus, 5); break;
+    case GBPrefixedInstructions::CB_RES5_A: cycles_consumed += res_b_r(5, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES4_B:
-        
-    case GBPrefixedInstructions::CB_RES4_C:
-        
-    case GBPrefixedInstructions::CB_RES4_D:
-        
-    case GBPrefixedInstructions::CB_RES4_E:
-        
-    case GBPrefixedInstructions::CB_RES4_H:
-        
-    case GBPrefixedInstructions::CB_RES4_L:
-        
-    case GBPrefixedInstructions::CB_RES4_HL:
-        
-    case GBPrefixedInstructions::CB_RES4_A:
-        
+    case GBPrefixedInstructions::CB_RES6_B: cycles_consumed += res_b_r(6, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES6_C: cycles_consumed += res_b_r(6, m_registers.c); break; 
+    case GBPrefixedInstructions::CB_RES6_D: cycles_consumed += res_b_r(6, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES6_E: cycles_consumed += res_b_r(6, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES6_H: cycles_consumed += res_b_r(6, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES6_L: cycles_consumed += res_b_r(6, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES6_HL: cycles_consumed += res_b_hl(bus, 6); break;
+    case GBPrefixedInstructions::CB_RES6_A: cycles_consumed += res_b_r(6, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES5_B:
+    case GBPrefixedInstructions::CB_RES7_B: cycles_consumed += res_b_r(7, m_registers.b); break;
+    case GBPrefixedInstructions::CB_RES7_C: cycles_consumed += res_b_r(7, m_registers.c); break;
+    case GBPrefixedInstructions::CB_RES7_D: cycles_consumed += res_b_r(7, m_registers.d); break;
+    case GBPrefixedInstructions::CB_RES7_E: cycles_consumed += res_b_r(7, m_registers.e); break;
+    case GBPrefixedInstructions::CB_RES7_H: cycles_consumed += res_b_r(7, m_registers.h); break;
+    case GBPrefixedInstructions::CB_RES7_L: cycles_consumed += res_b_r(7, m_registers.l); break;
+    case GBPrefixedInstructions::CB_RES7_HL: cycles_consumed += res_b_hl(bus, 7); break;
+    case GBPrefixedInstructions::CB_RES7_A: cycles_consumed += res_b_r(7, m_registers.a); break;
+ 
+    case GBPrefixedInstructions::CB_SET0_B: cycles_consumed += set_b_r(0, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET0_C: cycles_consumed += set_b_r(0, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET0_D: cycles_consumed += set_b_r(0, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET0_E: cycles_consumed += set_b_r(0, m_registers.e); break;
+    case GBPrefixedInstructions::CB_SET0_H: cycles_consumed += set_b_r(0, m_registers.h); break;
+    case GBPrefixedInstructions::CB_SET0_L: cycles_consumed += set_b_r(0, m_registers.l); break;
+    case GBPrefixedInstructions::CB_SET0_HL: cycles_consumed += set_b_hl(bus, 0); break;
+    case GBPrefixedInstructions::CB_SET0_A: cycles_consumed += set_b_r(0, m_registers.a); break;
         
-    case GBPrefixedInstructions::CB_RES5_C:
-        
-    case GBPrefixedInstructions::CB_RES5_D:
-        
-    case GBPrefixedInstructions::CB_RES5_E:
-        
-    case GBPrefixedInstructions::CB_RES5_H:
-        
-    case GBPrefixedInstructions::CB_RES5_L:
-        
-    case GBPrefixedInstructions::CB_RES5_HL:
-        
-    case GBPrefixedInstructions::CB_RES5_A:
-        
+    case GBPrefixedInstructions::CB_SET1_B: cycles_consumed += set_b_r(1, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET1_C: cycles_consumed += set_b_r(1, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET1_D: cycles_consumed += set_b_r(1, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET1_E: cycles_consumed += set_b_r(1, m_registers.e); break;
+    case GBPrefixedInstructions::CB_SET1_H: cycles_consumed += set_b_r(1, m_registers.h); break;
+    case GBPrefixedInstructions::CB_SET1_L: cycles_consumed += set_b_r(1, m_registers.l); break;
+    case GBPrefixedInstructions::CB_SET1_HL: cycles_consumed += set_b_hl(bus, 1); break;
+    case GBPrefixedInstructions::CB_SET1_A: cycles_consumed += set_b_r(1, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES6_B:
-        
-    case GBPrefixedInstructions::CB_RES6_C:
-        
-    case GBPrefixedInstructions::CB_RES6_D:
-        
-    case GBPrefixedInstructions::CB_RES6_E:
-        
-    case GBPrefixedInstructions::CB_RES6_H:
-        
-    case GBPrefixedInstructions::CB_RES6_L:
-        
-    case GBPrefixedInstructions::CB_RES6_HL:
-        
-    case GBPrefixedInstructions::CB_RES6_A:
-        
+    case GBPrefixedInstructions::CB_SET2_B: cycles_consumed += set_b_r(2, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET2_C: cycles_consumed += set_b_r(2, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET2_D: cycles_consumed += set_b_r(2, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET2_E: cycles_consumed += set_b_r(2, m_registers.e); break;
+    case GBPrefixedInstructions::CB_SET2_H: cycles_consumed += set_b_r(2, m_registers.h); break;
+    case GBPrefixedInstructions::CB_SET2_L: cycles_consumed += set_b_r(2, m_registers.l); break;
+    case GBPrefixedInstructions::CB_SET2_HL: cycles_consumed += set_b_hl(bus, 2); break;
+    case GBPrefixedInstructions::CB_SET2_A: cycles_consumed += set_b_r(2, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_RES7_B:
-        
-    case GBPrefixedInstructions::CB_RES7_C:
-        
-    case GBPrefixedInstructions::CB_RES7_D:
-        
-    case GBPrefixedInstructions::CB_RES7_E:
-        
-    case GBPrefixedInstructions::CB_RES7_H:
-        
-    case GBPrefixedInstructions::CB_RES7_L:
-        
-    case GBPrefixedInstructions::CB_RES7_HL:
-        
-    case GBPrefixedInstructions::CB_RES7_A:
-        
+    case GBPrefixedInstructions::CB_SET3_B: cycles_consumed += set_b_r(3, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET3_C: cycles_consumed += set_b_r(3, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET3_D: cycles_consumed += set_b_r(3, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET3_E: cycles_consumed += set_b_r(3, m_registers.e); break;
+    case GBPrefixedInstructions::CB_SET3_H: cycles_consumed += set_b_r(3, m_registers.h); break;
+    case GBPrefixedInstructions::CB_SET3_L: cycles_consumed += set_b_r(3, m_registers.l); break;
+    case GBPrefixedInstructions::CB_SET3_HL: cycles_consumed += set_b_hl(bus, 3); break;
+    case GBPrefixedInstructions::CB_SET3_A: cycles_consumed += set_b_r(3, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_SET0_B:
-        
-    case GBPrefixedInstructions::CB_SET0_C:
-        
-    case GBPrefixedInstructions::CB_SET0_D:
-        
-    case GBPrefixedInstructions::CB_SET0_E:
-        
-    case GBPrefixedInstructions::CB_SET0_H:
-        
-    case GBPrefixedInstructions::CB_SET0_L:
-        
-    case GBPrefixedInstructions::CB_SET0_HL:
-        
-    case GBPrefixedInstructions::CB_SET0_A:
-        
+    case GBPrefixedInstructions::CB_SET4_B: cycles_consumed += set_b_r(4, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET4_C: cycles_consumed += set_b_r(4, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET4_D: cycles_consumed += set_b_r(4, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET4_E: cycles_consumed += set_b_r(4, m_registers.e); break;
+    case GBPrefixedInstructions::CB_SET4_H: cycles_consumed += set_b_r(4, m_registers.h); break;
+    case GBPrefixedInstructions::CB_SET4_L: cycles_consumed += set_b_r(4, m_registers.l); break;
+    case GBPrefixedInstructions::CB_SET4_HL: cycles_consumed += set_b_hl(bus, 4); break;
+    case GBPrefixedInstructions::CB_SET4_A: cycles_consumed += set_b_r(4, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_SET1_B:
-        
-    case GBPrefixedInstructions::CB_SET1_C:
-        
-    case GBPrefixedInstructions::CB_SET1_D:
-        
-    case GBPrefixedInstructions::CB_SET1_E:
-        
-    case GBPrefixedInstructions::CB_SET1_H:
-        
-    case GBPrefixedInstructions::CB_SET1_L:
-        
-    case GBPrefixedInstructions::CB_SET1_HL:
-        
-    case GBPrefixedInstructions::CB_SET1_A:
-        
+    case GBPrefixedInstructions::CB_SET5_B: cycles_consumed += set_b_r(5, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET5_C: cycles_consumed += set_b_r(5, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET5_D: cycles_consumed += set_b_r(5, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET5_E: cycles_consumed += set_b_r(5, m_registers.e); break;
+    case GBPrefixedInstructions::CB_SET5_H: cycles_consumed += set_b_r(5, m_registers.h); break;
+    case GBPrefixedInstructions::CB_SET5_L: cycles_consumed += set_b_r(5, m_registers.l); break;
+    case GBPrefixedInstructions::CB_SET5_HL: cycles_consumed += set_b_hl(bus, 5); break;
+    case GBPrefixedInstructions::CB_SET5_A: cycles_consumed += set_b_r(5, m_registers.a); break;
 
-    case GBPrefixedInstructions::CB_SET2_B:
-        
-    case GBPrefixedInstructions::CB_SET2_C:
-        
-    case GBPrefixedInstructions::CB_SET2_D:
-        
-    case GBPrefixedInstructions::CB_SET2_E:
-        
-    case GBPrefixedInstructions::CB_SET2_H:
-        
-    case GBPrefixedInstructions::CB_SET2_L:
-        
-    case GBPrefixedInstructions::CB_SET2_HL:
-        
-    case GBPrefixedInstructions::CB_SET2_A:
-        
+    case GBPrefixedInstructions::CB_SET6_B: cycles_consumed += set_b_r(6, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET6_C: cycles_consumed += set_b_r(6, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET6_D: cycles_consumed += set_b_r(6, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET6_E: cycles_consumed += set_b_r(6, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET6_H: cycles_consumed += set_b_r(6, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET6_L: cycles_consumed += set_b_r(6, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET6_HL: cycles_consumed += set_b_hl(bus, 6); break;
+    case GBPrefixedInstructions::CB_SET6_A: cycles_consumed += set_b_r(6, m_registers.b); break;
 
-    case GBPrefixedInstructions::CB_SET3_B:
-        
-    case GBPrefixedInstructions::CB_SET3_C:
-        
-    case GBPrefixedInstructions::CB_SET3_D:
-        
-    case GBPrefixedInstructions::CB_SET3_E:
-        
-    case GBPrefixedInstructions::CB_SET3_H:
-        
-    case GBPrefixedInstructions::CB_SET3_L:
-        
-    case GBPrefixedInstructions::CB_SET3_HL:
-        
-    case GBPrefixedInstructions::CB_SET3_A:
-        
-
-    case GBPrefixedInstructions::CB_SET4_B:
-        
-    case GBPrefixedInstructions::CB_SET4_C:
-        
-    case GBPrefixedInstructions::CB_SET4_D:
-        
-    case GBPrefixedInstructions::CB_SET4_E:
-        
-    case GBPrefixedInstructions::CB_SET4_H:
-        
-    case GBPrefixedInstructions::CB_SET4_L:
-        
-    case GBPrefixedInstructions::CB_SET4_HL:
-        
-    case GBPrefixedInstructions::CB_SET4_A:
-        
-
-    case GBPrefixedInstructions::CB_SET5_B:
-        
-    case GBPrefixedInstructions::CB_SET5_C:
-        
-    case GBPrefixedInstructions::CB_SET5_D:
-        
-    case GBPrefixedInstructions::CB_SET5_E:
-        
-    case GBPrefixedInstructions::CB_SET5_H:
-        
-    case GBPrefixedInstructions::CB_SET5_L:
-        
-    case GBPrefixedInstructions::CB_SET5_HL:
-        
-    case GBPrefixedInstructions::CB_SET5_A:
-        
-
-    case GBPrefixedInstructions::CB_SET6_B:
-        
-    case GBPrefixedInstructions::CB_SET6_C:
-        
-    case GBPrefixedInstructions::CB_SET6_D:
-        
-    case GBPrefixedInstructions::CB_SET6_E:
-        
-    case GBPrefixedInstructions::CB_SET6_H:
-        
-    case GBPrefixedInstructions::CB_SET6_L:
-        
-    case GBPrefixedInstructions::CB_SET6_HL:
-        
-    case GBPrefixedInstructions::CB_SET6_A:
-        
-
-    case GBPrefixedInstructions::CB_SET7_B:
-        
-    case GBPrefixedInstructions::CB_SET7_C:
-        
-    case GBPrefixedInstructions::CB_SET7_D:
-        
-    case GBPrefixedInstructions::CB_SET7_E:
-        
-    case GBPrefixedInstructions::CB_SET7_H:
-        
-    case GBPrefixedInstructions::CB_SET7_L:
-        
-    case GBPrefixedInstructions::CB_SET7_HL:
-        
-    case GBPrefixedInstructions::CB_SET7_A:
-        
+    case GBPrefixedInstructions::CB_SET7_B: cycles_consumed += set_b_r(7, m_registers.b); break;
+    case GBPrefixedInstructions::CB_SET7_C: cycles_consumed += set_b_r(7, m_registers.c); break;
+    case GBPrefixedInstructions::CB_SET7_D: cycles_consumed += set_b_r(7, m_registers.d); break;
+    case GBPrefixedInstructions::CB_SET7_E: cycles_consumed += set_b_r(7, m_registers.e); break;
+    case GBPrefixedInstructions::CB_SET7_H: cycles_consumed += set_b_r(7, m_registers.h); break;
+    case GBPrefixedInstructions::CB_SET7_L: cycles_consumed += set_b_r(7, m_registers.l); break;
+    case GBPrefixedInstructions::CB_SET7_HL: cycles_consumed += set_b_hl(bus, 7); break;
+    case GBPrefixedInstructions::CB_SET7_A: cycles_consumed += set_b_r(7, m_registers.a); break;
 
     default:
         std::cerr << std::format("[ERROR @ CPU::run()] Invalid opcode, {:x2}\n", m_opcode);

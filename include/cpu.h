@@ -104,7 +104,7 @@ private:
     int rrc_hl(Bus& bus);
     int rl_r(u8& src);
     int rl_hl(Bus& bus);
-    int rr_r(Bus& bus,u8& src);
+    int rr_r(u8& src);
     int rr_hl(Bus& bus);
     int sla_r(u8& src);
     int sla_hl(Bus& bus);
