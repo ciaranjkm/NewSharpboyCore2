@@ -44,250 +44,249 @@ int CPU::execute_opcode(Bus& bus){
     case GBInstructions::LD_C_N: cycles_consumed += ld_r_n(bus, m_registers.c); break;
     case GBInstructions::RRCA: cycles_consumed += rrca(); break;
 
-    case GBInstructions::STOP_N:
-    case GBInstructions::LD_DE_NN:
-    case GBInstructions::LD_DE_A:
-    case GBInstructions::INC_DE:
-    case GBInstructions::INC_D:
-    case GBInstructions::DEC_D:
-    case GBInstructions::LD_D_N:
-    case GBInstructions::RLA:
-    case GBInstructions::JR_E:
-    case GBInstructions::ADD_HL_DE:
-    case GBInstructions::LD_A_DE:
-    case GBInstructions::DEC_DE:
-    case GBInstructions::INC_E:
-    case GBInstructions::DEC_E:
-    case GBInstructions::LD_E_N:
-    case GBInstructions::RRA:
+    case GBInstructions::STOP_N: cycles_consumed += 4; break;
+    case GBInstructions::LD_DE_NN: cycles_consumed += ld_rr_nn(bus, DE); break;
+    case GBInstructions::LD_DE_A: cycles_consumed += ld_de_a(bus); break;
+    case GBInstructions::INC_DE: cycles_consumed += inc_rr(bus, DE); break;
+    case GBInstructions::INC_D: cycles_consumed += inc_r(m_registers.d); break;
+    case GBInstructions::DEC_D: cycles_consumed += dec_r(m_registers.d); break;
+    case GBInstructions::LD_D_N: cycles_consumed += ld_r_n(bus, m_registers.d); break;
+    case GBInstructions::RLA: cycles_consumed += rla(); break;
+    case GBInstructions::JR_E: cycles_consumed += jr_e(bus); break;
+    case GBInstructions::ADD_HL_DE: cycles_consumed += add_hl_rr(bus, DE); break;
+    case GBInstructions::LD_A_DE: cycles_consumed += ld_a_de(bus); break;
+    case GBInstructions::DEC_DE: cycles_consumed += dec_rr(bus, DE); break;
+    case GBInstructions::INC_E: cycles_consumed += inc_r(m_registers.e); break;
+    case GBInstructions::DEC_E: cycles_consumed += dec_r(m_registers.e); break;
+    case GBInstructions::LD_E_N: cycles_consumed += ld_r_n(bus, m_registers.e); break;
+    case GBInstructions::RRA: cycles_consumed += rra(); break;
     
-    case GBInstructions::JR_NZ_E:    
-    case GBInstructions::LD_HL_NN:
-    case GBInstructions::LDI_HL_A:
-    case GBInstructions::INC_HL:
-    case GBInstructions::INC_H:
-    case GBInstructions::DEC_H:
-    case GBInstructions::LD_H_N:
-    case GBInstructions::DAA:
-    case GBInstructions::JR_Z_E:
-    case GBInstructions::ADD_HL_HL:
-    case GBInstructions::LD_A_HLI:
-    case GBInstructions::DEC_HL:
-    case GBInstructions::INC_L:
-    case GBInstructions::DEC_L:
-    case GBInstructions::LD_L_N:
-    case GBInstructions::CPL:
+    case GBInstructions::JR_NZ_E: cycles_consumed += jr_cc(bus, !m_flags.get_flag(Z)); break;   
+    case GBInstructions::LD_HL_NN: cycles_consumed += ld_rr_nn(bus, HL); break;
+    case GBInstructions::LDI_HL_A: cycles_consumed += ld_hl_inc_a(bus); break;
+    case GBInstructions::INC_HL: cycles_consumed += inc_rr(bus, HL); break;
+    case GBInstructions::INC_H: cycles_consumed += inc_r(m_registers.h); break;
+    case GBInstructions::DEC_H: cycles_consumed += dec_r(m_registers.h); break;
+    case GBInstructions::LD_H_N: cycles_consumed += ld_r_n(bus, m_registers.h); break;
+    case GBInstructions::DAA: cycles_consumed += daa(); break;
+    case GBInstructions::JR_Z_E: cycles_consumed += jr_cc(bus, m_flags.get_flag(Z)); break;
+    case GBInstructions::ADD_HL_HL: cycles_consumed += add_hl_rr(bus, HL); break;
+    case GBInstructions::LD_A_HLI: cycles_consumed += ld_a_hl_inc(bus); break;
+    case GBInstructions::DEC_HL: cycles_consumed += dec_rr(bus, HL); break;
+    case GBInstructions::INC_L: cycles_consumed += inc_r(m_registers.l); break;
+    case GBInstructions::DEC_L: cycles_consumed += dec_r(m_registers.l); break;
+    case GBInstructions::LD_L_N: cycles_consumed += ld_r_n(bus, m_registers.l); break;
+    case GBInstructions::CPL: cycles_consumed += cpl(); break;
         
-    case GBInstructions::JR_NC_E:
-    case GBInstructions::LD_SP_NN:
-    case GBInstructions::LDD_HL_A:
-    case GBInstructions::INC_SP:
-    case GBInstructions::INC_memHL:
-    case GBInstructions::DEC_memHL:
-    case GBInstructions::LD_HL_N:
-    case GBInstructions::SCF:
-    case GBInstructions::JR_C_E:
-    case GBInstructions::ADD_HL_SP:
-    case GBInstructions::LD_A_HLD:
-    case GBInstructions::DEC_SP:
-    case GBInstructions::INC_A:
-    case GBInstructions::DEC_A:
-    case GBInstructions::LD_A_N:
-    case GBInstructions::CCF:
+    case GBInstructions::JR_NC_E: cycles_consumed += jr_cc(bus, !m_flags.get_flag(C)); break;
+    case GBInstructions::LD_SP_NN: cycles_consumed += ld_rr_nn(bus, m_registers.sp); break;
+    case GBInstructions::LDD_HL_A: cycles_consumed += ld_hl_dec_a(bus); break;
+    case GBInstructions::INC_SP: cycles_consumed += inc_rr(bus, m_registers.sp); break;
+    case GBInstructions::INC_memHL: cycles_consumed += inc_hl(bus); break;
+    case GBInstructions::DEC_memHL: cycles_consumed += dec_hl(bus); break;
+    case GBInstructions::LD_HL_N: cycles_consumed += ld_hl_n(bus); break;
+    case GBInstructions::SCF: cycles_consumed += scf();
+    case GBInstructions::JR_C_E: cycles_consumed += jr_cc(bus, m_flags.get_flag(C)); break;
+    case GBInstructions::ADD_HL_SP: cycles_consumed += add_hl_rr(bus, m_registers.sp); break;
+    case GBInstructions::LD_A_HLD: cycles_consumed += ld_a_hl_dec(bus); break;
+    case GBInstructions::DEC_SP: cycles_consumed += dec_rr(bus, m_registers.sp); break;
+    case GBInstructions::INC_A: cycles_consumed += inc_r(m_registers.a); break;
+    case GBInstructions::DEC_A: cycles_consumed += dec_r(m_registers.a); break;
+    case GBInstructions::LD_A_N: cycles_consumed += ld_r_n(bus, m_registers.a); break;
+    case GBInstructions::CCF: cycles_consumed += ccf(); break;
 
-    case GBInstructions::LD_B_B:
-    case GBInstructions::LD_B_C:
-    case GBInstructions::LD_B_D:
-    case GBInstructions::LD_B_E:
-    case GBInstructions::LD_B_H:
-    case GBInstructions::LD_B_L:
-    case GBInstructions::LD_B_HL:
-    case GBInstructions::LD_B_A:
-    case GBInstructions::LD_C_B:
-    case GBInstructions::LD_C_C:
-    case GBInstructions::LD_C_D:
-    case GBInstructions::LD_C_E:
-    case GBInstructions::LD_C_H:
-    case GBInstructions::LD_C_L:
-    case GBInstructions::LD_C_HL:
-    case GBInstructions::LD_C_A:
+    case GBInstructions::LD_B_B: cycles_consumed += ld_r_r(m_registers.b, m_registers.b); break;
+    case GBInstructions::LD_B_C: cycles_consumed += ld_r_r(m_registers.b, m_registers.c); break;
+    case GBInstructions::LD_B_D: cycles_consumed += ld_r_r(m_registers.b, m_registers.d); break;
+    case GBInstructions::LD_B_E: cycles_consumed += ld_r_r(m_registers.b, m_registers.e); break;
+    case GBInstructions::LD_B_H: cycles_consumed += ld_r_r(m_registers.b, m_registers.h); break;
+    case GBInstructions::LD_B_L: cycles_consumed += ld_r_r(m_registers.b, m_registers.l); break;
+    case GBInstructions::LD_B_HL: cycles_consumed += ld_r_hl(bus, m_registers.b); break;
+    case GBInstructions::LD_B_A: cycles_consumed += ld_r_r(m_registers.b, m_registers.a); break;
+    case GBInstructions::LD_C_B: cycles_consumed += ld_r_r(m_registers.c, m_registers.b); break;
+    case GBInstructions::LD_C_C: cycles_consumed += ld_r_r(m_registers.c, m_registers.c); break;
+    case GBInstructions::LD_C_D: cycles_consumed += ld_r_r(m_registers.c, m_registers.d); break;
+    case GBInstructions::LD_C_E: cycles_consumed += ld_r_r(m_registers.c, m_registers.e); break;
+    case GBInstructions::LD_C_H: cycles_consumed += ld_r_r(m_registers.c, m_registers.h); break;
+    case GBInstructions::LD_C_L: cycles_consumed += ld_r_r(m_registers.c, m_registers.l); break;
+    case GBInstructions::LD_C_HL: cycles_consumed += ld_r_hl(bus, m_registers.c); break;
+    case GBInstructions::LD_C_A: cycles_consumed += ld_r_r(m_registers.c, m_registers.a); break;
 
-    case GBInstructions::LD_D_B:
-    case GBInstructions::LD_D_C:
-    case GBInstructions::LD_D_D:
-    case GBInstructions::LD_D_E:
-    case GBInstructions::LD_D_H:
-    case GBInstructions::LD_D_L:
-    case GBInstructions::LD_D_HL:
-    case GBInstructions::LD_D_A:
-    case GBInstructions::LD_E_B:
-    case GBInstructions::LD_E_C:
-    case GBInstructions::LD_E_D:
-    case GBInstructions::LD_E_E:
-    case GBInstructions::LD_E_H:
-    case GBInstructions::LD_E_L:
-    case GBInstructions::LD_E_HL:
-    case GBInstructions::LD_E_A:
+    case GBInstructions::LD_D_B: cycles_consumed += ld_r_r(m_registers.d, m_registers.b); break;
+    case GBInstructions::LD_D_C: cycles_consumed += ld_r_r(m_registers.d, m_registers.c); break;
+    case GBInstructions::LD_D_D: cycles_consumed += ld_r_r(m_registers.d, m_registers.d); break;
+    case GBInstructions::LD_D_E: cycles_consumed += ld_r_r(m_registers.d, m_registers.e); break;
+    case GBInstructions::LD_D_H: cycles_consumed += ld_r_r(m_registers.d, m_registers.h); break;
+    case GBInstructions::LD_D_L: cycles_consumed += ld_r_r(m_registers.d, m_registers.l); break;
+    case GBInstructions::LD_D_HL: cycles_consumed += ld_r_hl(bus, m_registers.d); break;
+    case GBInstructions::LD_D_A: cycles_consumed += ld_r_r(m_registers.d, m_registers.a); break;
+    case GBInstructions::LD_E_B: cycles_consumed += ld_r_r(m_registers.e, m_registers.b); break;
+    case GBInstructions::LD_E_C: cycles_consumed += ld_r_r(m_registers.e, m_registers.c); break;
+    case GBInstructions::LD_E_D: cycles_consumed += ld_r_r(m_registers.e, m_registers.d); break;
+    case GBInstructions::LD_E_E: cycles_consumed += ld_r_r(m_registers.e, m_registers.e); break;
+    case GBInstructions::LD_E_H: cycles_consumed += ld_r_r(m_registers.e, m_registers.h); break;
+    case GBInstructions::LD_E_L: cycles_consumed += ld_r_r(m_registers.e, m_registers.l); break;
+    case GBInstructions::LD_E_HL: cycles_consumed += ld_r_hl(bus, m_registers.e); break;
+    case GBInstructions::LD_E_A: cycles_consumed += ld_r_r(m_registers.e, m_registers.a); break;
 
-    case GBInstructions::LD_H_B:
-    case GBInstructions::LD_H_C:
-    case GBInstructions::LD_H_D:
-    case GBInstructions::LD_H_E:
-    case GBInstructions::LD_H_H:
-    case GBInstructions::LD_H_L:
-    case GBInstructions::LD_H_HL:
-    case GBInstructions::LD_H_A:
-    case GBInstructions::LD_L_B:
-    case GBInstructions::LD_L_C:
-    case GBInstructions::LD_L_D:
-    case GBInstructions::LD_L_E:
-    case GBInstructions::LD_L_H:
-    case GBInstructions::LD_L_L:
-    case GBInstructions::LD_L_HL:
-    case GBInstructions::LD_L_A:
+    case GBInstructions::LD_H_B: cycles_consumed += ld_r_r(m_registers.h, m_registers.b); break;
+    case GBInstructions::LD_H_C: cycles_consumed += ld_r_r(m_registers.h, m_registers.c); break;
+    case GBInstructions::LD_H_D: cycles_consumed += ld_r_r(m_registers.h, m_registers.d); break;
+    case GBInstructions::LD_H_E: cycles_consumed += ld_r_r(m_registers.h, m_registers.e); break;
+    case GBInstructions::LD_H_H: cycles_consumed += ld_r_r(m_registers.h, m_registers.h); break;
+    case GBInstructions::LD_H_L: cycles_consumed += ld_r_r(m_registers.h, m_registers.l); break;
+    case GBInstructions::LD_H_HL: cycles_consumed += ld_r_hl(bus, m_registers.h); break;
+    case GBInstructions::LD_H_A: cycles_consumed += ld_r_r(m_registers.h, m_registers.a); break;
+    case GBInstructions::LD_L_B: cycles_consumed += ld_r_r(m_registers.l, m_registers.b); break;
+    case GBInstructions::LD_L_C: cycles_consumed += ld_r_r(m_registers.l, m_registers.c); break;
+    case GBInstructions::LD_L_D: cycles_consumed += ld_r_r(m_registers.l, m_registers.d); break;
+    case GBInstructions::LD_L_E: cycles_consumed += ld_r_r(m_registers.l, m_registers.e); break;
+    case GBInstructions::LD_L_H: cycles_consumed += ld_r_r(m_registers.l, m_registers.h); break;
+    case GBInstructions::LD_L_L: cycles_consumed += ld_r_r(m_registers.l, m_registers.l); break;
+    case GBInstructions::LD_L_HL: cycles_consumed += ld_r_hl(bus, m_registers.l); break;
+    case GBInstructions::LD_L_A: cycles_consumed += ld_r_r(m_registers.l, m_registers.a); break;
     
-    case GBInstructions::LD_HL_B:    
-    case GBInstructions::LD_HL_C:
-    case GBInstructions::LD_HL_D:
-    case GBInstructions::LD_HL_E:
-    case GBInstructions::LD_HL_H:
-    case GBInstructions::LD_HL_L:
-    case GBInstructions::HALT:
-    case GBInstructions::LD_HL_A:
-    case GBInstructions::LD_A_B:
-    case GBInstructions::LD_A_C:
-    case GBInstructions::LD_A_D:
-    case GBInstructions::LD_A_E:
-    case GBInstructions::LD_A_H:
-    case GBInstructions::LD_A_L:
-    case GBInstructions::LD_A_HL:
-    case GBInstructions::LD_A_A:
+    case GBInstructions::LD_HL_B: cycles_consumed += ld_hl_r(bus, m_registers.b); break;
+    case GBInstructions::LD_HL_C: cycles_consumed += ld_hl_r(bus, m_registers.c); break;
+    case GBInstructions::LD_HL_D: cycles_consumed += ld_hl_r(bus, m_registers.d); break;
+    case GBInstructions::LD_HL_E: cycles_consumed += ld_hl_r(bus, m_registers.e); break;
+    case GBInstructions::LD_HL_H: cycles_consumed += ld_hl_r(bus, m_registers.h); break;
+    case GBInstructions::LD_HL_L: cycles_consumed += ld_hl_r(bus, m_registers.l); break;
+    case GBInstructions::HALT: cycles_consumed += 4; break;
+    case GBInstructions::LD_HL_A: cycles_consumed += ld_hl_r(bus, m_registers.a); break;
+    case GBInstructions::LD_A_B: cycles_consumed += ld_r_r(m_registers.a, m_registers.b); break;
+    case GBInstructions::LD_A_C: cycles_consumed += ld_r_r(m_registers.a, m_registers.c); break;
+    case GBInstructions::LD_A_D: cycles_consumed += ld_r_r(m_registers.a, m_registers.d); break;
+    case GBInstructions::LD_A_E: cycles_consumed += ld_r_r(m_registers.a, m_registers.e); break;
+    case GBInstructions::LD_A_H: cycles_consumed += ld_r_r(m_registers.a, m_registers.h); break;
+    case GBInstructions::LD_A_L: cycles_consumed += ld_r_r(m_registers.a, m_registers.l); break;
+    case GBInstructions::LD_A_HL: cycles_consumed += ld_r_hl(bus, m_registers.a); break;
+    case GBInstructions::LD_A_A: cycles_consumed += ld_r_r(m_registers.a, m_registers.a); break;
 
-    case GBInstructions::ADD_A_B:
-    case GBInstructions::ADD_A_C:
-    case GBInstructions::ADD_A_D:
-    case GBInstructions::ADD_A_E:
-    case GBInstructions::ADD_A_H:
-    case GBInstructions::ADD_A_L:
-    case GBInstructions::ADD_A_HL:
-    case GBInstructions::ADD_A_A:
-    case GBInstructions::ADC_A_B:
-    case GBInstructions::ADC_A_C:
-    case GBInstructions::ADC_A_D:
-    case GBInstructions::ADC_A_E:
-    case GBInstructions::ADC_A_H:
-    case GBInstructions::ADC_A_L:
-    case GBInstructions::ADC_A_HL:
-    case GBInstructions::ADC_A_A:
+    case GBInstructions::ADD_A_B: cycles_consumed += add_r(m_registers.b); break;
+    case GBInstructions::ADD_A_C: cycles_consumed += add_r(m_registers.c); break;
+    case GBInstructions::ADD_A_D: cycles_consumed += add_r(m_registers.d); break;
+    case GBInstructions::ADD_A_E: cycles_consumed += add_r(m_registers.e); break;
+    case GBInstructions::ADD_A_H: cycles_consumed += add_r(m_registers.h); break;
+    case GBInstructions::ADD_A_L: cycles_consumed += add_r(m_registers.l); break;
+    case GBInstructions::ADD_A_HL: cycles_consumed += add_hl(bus); break;
+    case GBInstructions::ADD_A_A: cycles_consumed += add_r(m_registers.a); break;
+    case GBInstructions::ADC_A_B: cycles_consumed += adc_r(m_registers.b); break;
+    case GBInstructions::ADC_A_C: cycles_consumed += adc_r(m_registers.c); break;
+    case GBInstructions::ADC_A_D: cycles_consumed += adc_r(m_registers.d); break;
+    case GBInstructions::ADC_A_E: cycles_consumed += adc_r(m_registers.e); break;
+    case GBInstructions::ADC_A_H: cycles_consumed += adc_r(m_registers.h); break;
+    case GBInstructions::ADC_A_L: cycles_consumed += adc_r(m_registers.l); break;
+    case GBInstructions::ADC_A_HL: cycles_consumed += adc_hl(bus); break;
+    case GBInstructions::ADC_A_A: cycles_consumed += adc_r(m_registers.a); break;
 
-    case GBInstructions::SUB_A_B:
-    case GBInstructions::SUB_A_C:
-    case GBInstructions::SUB_A_D:
-    case GBInstructions::SUB_A_E:
-    case GBInstructions::SUB_A_H:
-    case GBInstructions::SUB_A_L:
-    case GBInstructions::SUB_A_HL:
-    case GBInstructions::SUB_A_A:
-    case GBInstructions::SBC_A_B:
-    case GBInstructions::SBC_A_C:
-    case GBInstructions::SBC_A_D:    
-    case GBInstructions::SBC_A_E:    
-    case GBInstructions::SBC_A_H:
-    case GBInstructions::SBC_A_L:
-    case GBInstructions::SBC_A_HL:
-    case GBInstructions::SBC_A_A:
+    case GBInstructions::SUB_A_B: cycles_consumed += sub_r(m_registers.b); break;
+    case GBInstructions::SUB_A_C: cycles_consumed += sub_r(m_registers.c); break;
+    case GBInstructions::SUB_A_D: cycles_consumed += sub_r(m_registers.d); break;
+    case GBInstructions::SUB_A_E: cycles_consumed += sub_r(m_registers.e); break;
+    case GBInstructions::SUB_A_H: cycles_consumed += sub_r(m_registers.h); break;
+    case GBInstructions::SUB_A_L: cycles_consumed += sub_r(m_registers.l); break;
+    case GBInstructions::SUB_A_HL: cycles_consumed += sub_hl(bus); break;
+    case GBInstructions::SUB_A_A: cycles_consumed += sub_r(m_registers.a); break;
+    case GBInstructions::SBC_A_B: cycles_consumed += sbc_r(m_registers.b); break;
+    case GBInstructions::SBC_A_C: cycles_consumed += sbc_r(m_registers.c); break;
+    case GBInstructions::SBC_A_D: cycles_consumed += sbc_r(m_registers.d); break;    
+    case GBInstructions::SBC_A_E: cycles_consumed += sbc_r(m_registers.e); break;    
+    case GBInstructions::SBC_A_H: cycles_consumed += sbc_r(m_registers.h); break;
+    case GBInstructions::SBC_A_L: cycles_consumed += sbc_r(m_registers.l); break;
+    case GBInstructions::SBC_A_HL: cycles_consumed += sbc_hl(bus); break;
+    case GBInstructions::SBC_A_A: cycles_consumed += sbc_r(m_registers.a); break;
 
-    case GBInstructions::AND_A_B:
-    case GBInstructions::AND_A_C:
-    case GBInstructions::AND_A_D:
-    case GBInstructions::AND_A_E:
-    case GBInstructions::AND_A_H:
-    case GBInstructions::AND_A_L:
-    case GBInstructions::AND_A_HL:
-    case GBInstructions::AND_A_A:
-    case GBInstructions::XOR_A_B:
-    case GBInstructions::XOR_A_C:
-    case GBInstructions::XOR_A_D:
-    case GBInstructions::XOR_A_E:
-    case GBInstructions::XOR_A_H:
-    case GBInstructions::XOR_A_L:
-    case GBInstructions::XOR_A_HL:
-    case GBInstructions::XOR_A_A:
+    case GBInstructions::AND_A_B: cycles_consumed += and_r(m_registers.b); break;
+    case GBInstructions::AND_A_C: cycles_consumed += and_r(m_registers.c); break;
+    case GBInstructions::AND_A_D: cycles_consumed += and_r(m_registers.e); break;
+    case GBInstructions::AND_A_E: cycles_consumed += and_r(m_registers.e); break;
+    case GBInstructions::AND_A_H: cycles_consumed += and_r(m_registers.h); break;
+    case GBInstructions::AND_A_L: cycles_consumed += and_r(m_registers.l); break;
+    case GBInstructions::AND_A_HL: cycles_consumed += and_hl(bus); break;
+    case GBInstructions::AND_A_A: cycles_consumed += and_r(m_registers.a); break;
+    case GBInstructions::XOR_A_B: cycles_consumed += xor_r(m_registers.b); break;
+    case GBInstructions::XOR_A_C: cycles_consumed += xor_r(m_registers.c); break;
+    case GBInstructions::XOR_A_D: cycles_consumed += xor_r(m_registers.d); break;
+    case GBInstructions::XOR_A_E: cycles_consumed += xor_r(m_registers.e); break;
+    case GBInstructions::XOR_A_H: cycles_consumed += xor_r(m_registers.h); break;
+    case GBInstructions::XOR_A_L: cycles_consumed += xor_r(m_registers.l); break;
+    case GBInstructions::XOR_A_HL: cycles_consumed += xor_hl(bus); break;
+    case GBInstructions::XOR_A_A: cycles_consumed += xor_r(m_registers.a); break;
 
-    case GBInstructions::OR_A_B:
-    case GBInstructions::OR_A_C:
-    case GBInstructions::OR_A_D:
-    case GBInstructions::OR_A_E:
-    case GBInstructions::OR_A_H:
-    case GBInstructions::OR_A_L:
-    case GBInstructions::OR_A_HL:
-    case GBInstructions::OR_A_A:
-    case GBInstructions::CP_A_B:
-    case GBInstructions::CP_A_C:
-    case GBInstructions::CP_A_D:
-    case GBInstructions::CP_A_E:
-    case GBInstructions::CP_A_H:
-    case GBInstructions::CP_A_L:
-    case GBInstructions::CP_A_HL:
-    case GBInstructions::CP_A_A:
+    case GBInstructions::OR_A_B: cycles_consumed += or_r(m_registers.b); break;
+    case GBInstructions::OR_A_C: cycles_consumed += or_r(m_registers.c); break;
+    case GBInstructions::OR_A_D: cycles_consumed += or_r(m_registers.d); break;
+    case GBInstructions::OR_A_E: cycles_consumed += or_r(m_registers.e); break;
+    case GBInstructions::OR_A_H: cycles_consumed += or_r(m_registers.h); break;
+    case GBInstructions::OR_A_L: cycles_consumed += or_r(m_registers.l); break;
+    case GBInstructions::OR_A_HL: cycles_consumed += or_hl(bus); break;
+    case GBInstructions::OR_A_A: cycles_consumed += or_r(m_registers.a); break;
+    case GBInstructions::CP_A_B: cycles_consumed += cp_r(m_registers.b); break;
+    case GBInstructions::CP_A_C: cycles_consumed += cp_r(m_registers.c); break;
+    case GBInstructions::CP_A_D: cycles_consumed += cp_r(m_registers.d); break;
+    case GBInstructions::CP_A_E: cycles_consumed += cp_r(m_registers.e); break;
+    case GBInstructions::CP_A_H: cycles_consumed += cp_r(m_registers.h); break;
+    case GBInstructions::CP_A_L: cycles_consumed += cp_r(m_registers.l); break;
+    case GBInstructions::CP_A_HL: cycles_consumed += cp_hl(bus); break;
+    case GBInstructions::CP_A_A: cycles_consumed += cp_r(m_registers.a); break;
 
-    case GBInstructions::RET_NZ:
-    case GBInstructions::POP_BC:
-    case GBInstructions::JP_NZ_NN:
-    case GBInstructions::JP_NN:
-    case GBInstructions::CALL_NZ_NN:
-    case GBInstructions::PUSH_BC:
-    case GBInstructions::ADD_A_N:
-    case GBInstructions::RST_00:
-    case GBInstructions::RET_Z:
-    case GBInstructions::RET:
-    case GBInstructions::JP_Z_NN:        
-    case GBInstructions::CB:
-    case GBInstructions::CALL_Z_NN:
-    case GBInstructions::CALL_NN:
-    case GBInstructions::ADC_A_N:
-    case GBInstructions::RST_08:
+    case GBInstructions::RET_NZ: cycles_consumed += ret_cc(bus, !m_flags.get_flag(Z)); break;
+    case GBInstructions::POP_BC: cycles_consumed += pop_rr(bus, BC); break;
+    case GBInstructions::JP_NZ_NN: cycles_consumed += jp_cc(bus, !m_flags.get_flag(Z)); break;
+    case GBInstructions::JP_NN: cycles_consumed += jp_nn(bus); break;
+    case GBInstructions::CALL_NZ_NN: cycles_consumed += call_cc(bus, !m_flags.get_flag(Z)); break;
+    case GBInstructions::PUSH_BC: cycles_consumed += push_rr(bus, BC); break;
+    case GBInstructions::ADD_A_N: cycles_consumed += add_n(bus); break;
+    case GBInstructions::RST_00: cycles_consumed += rst_n(bus, 0x00); break;
+    case GBInstructions::RET_Z: cycles_consumed += ret_cc(bus, m_flags.get_flag(Z)); break;
+    case GBInstructions::RET: cycles_consumed += ret(bus); break; 
+    case GBInstructions::JP_Z_NN: cycles_consumed += jp_cc(bus, m_flags.get_flag(Z)); break;
+    case GBInstructions::CALL_Z_NN: cycles_consumed += call_cc(bus, m_flags.get_flag(Z)); break;
+    case GBInstructions::CALL_NN: cycles_consumed += call_nn(bus); break;
+    case GBInstructions::ADC_A_N: cycles_consumed += adc_n(bus); break;
+    case GBInstructions::RST_08: cycles_consumed += rst_n(bus, 0x08); break;
         
 
-    case GBInstructions::RET_NC:
-    case GBInstructions::POP_DE:
-    case GBInstructions::JP_NC_NN:
-    case GBInstructions::CALL_NC_NN:
-    case GBInstructions::PUSH_DE:
-    case GBInstructions::SUB_A_N:
-    case GBInstructions::RST_10:
-    case GBInstructions::RET_C:
-    case GBInstructions::RETI:
-    case GBInstructions::JP_C_NN:
-    case GBInstructions::CALL_C_NN:
-    case GBInstructions::SBC_A_N:
-    case GBInstructions::RST_18:
+    case GBInstructions::RET_NC: cycles_consumed += ret_cc(bus, !m_flags.get_flag(C)); break;
+    case GBInstructions::POP_DE: cycles_consumed += pop_rr(bus, DE); break;
+    case GBInstructions::JP_NC_NN: cycles_consumed += jp_cc(bus, !m_flags.get_flag(C)); break;
+    case GBInstructions::CALL_NC_NN: cycles_consumed += call_cc(bus, !m_flags.get_flag(C)); break;
+    case GBInstructions::PUSH_DE: cycles_consumed += push_rr(bus, DE); break;
+    case GBInstructions::SUB_A_N: cycles_consumed += sub_n(bus); break;
+    case GBInstructions::RST_10: cycles_consumed += rst_n(bus, 0x10); break;
+    case GBInstructions::RET_C: cycles_consumed += ret_cc(bus, m_flags.get_flag(C)); break;
+    case GBInstructions::RETI: cycles_consumed += reti(bus); break;
+    case GBInstructions::JP_C_NN: cycles_consumed += jp_cc(bus, m_flags.get_flag(C)); break;
+    case GBInstructions::CALL_C_NN: cycles_consumed += call_cc(bus, m_flags.get_flag(C)); break;
+    case GBInstructions::SBC_A_N: cycles_consumed += sbc_n(bus); break;
+    case GBInstructions::RST_18: cycles_consumed += rst_n(bus, 0x18); break;
 
-    case GBInstructions::LDH_N_A:
-    case GBInstructions::POP_HL:
-    case GBInstructions::LDH_C_A:
-    case GBInstructions::PUSH_HL:
-    case GBInstructions::AND_A_N:
-    case GBInstructions::RST_20:
-    case GBInstructions::ADD_SP_E:
-    case GBInstructions::JP_HL:
-    case GBInstructions::LD_NN_A:
-    case GBInstructions::XOR_A_N:
-    case GBInstructions::RST_28:
+    case GBInstructions::LDH_N_A: cycles_consumed += ldh_n_a(bus); break;
+    case GBInstructions::POP_HL: cycles_consumed += pop_rr(bus, HL); break;
+    case GBInstructions::LDH_C_A: cycles_consumed += ldh_c_a(bus); break;
+    case GBInstructions::PUSH_HL: cycles_consumed += push_rr(bus, HL); break;
+    case GBInstructions::AND_A_N: cycles_consumed += and_n(bus); break;
+    case GBInstructions::RST_20: cycles_consumed += rst_n(bus, 0x20); break;
+    case GBInstructions::ADD_SP_E: cycles_consumed += add_sp_e(bus); break;
+    case GBInstructions::JP_HL: cycles_consumed += jp_hl(bus); break;
+    case GBInstructions::LD_NN_A: cycles_consumed += ld_nn_a(bus); break;
+    case GBInstructions::XOR_A_N: cycles_consumed += xor_n(bus); break;
+    case GBInstructions::RST_28: cycles_consumed += rst_n(bus, 0x28); break;
 
-    case GBInstructions::LDH_A_N:
-    case GBInstructions::POP_AF:
-    case GBInstructions::LDH_A_C:
-    case GBInstructions::DI:
-    case GBInstructions::PUSH_AF:
-    case GBInstructions::OR_A_N:
-    case GBInstructions::RST_30:
-    case GBInstructions::LD_HL_SP_E:
-    case GBInstructions::LD_SP_HL:
-    case GBInstructions::LD_A_NN:
-    case GBInstructions::EI:
-    case GBInstructions::CP_A_N:
-    case GBInstructions::RST_38:
+    case GBInstructions::LDH_A_N: cycles_consumed += ldh_a_n(bus); break;
+    case GBInstructions::POP_AF: cycles_consumed += pop_rr(bus, AF); break;
+    case GBInstructions::LDH_A_C: cycles_consumed += ldh_a_c(bus); break;
+    case GBInstructions::DI: cycles_consumed += 4; break; //todo this
+    case GBInstructions::PUSH_AF: cycles_consumed += push_rr(bus, AF); break;
+    case GBInstructions::OR_A_N: cycles_consumed += or_n(bus); break;
+    case GBInstructions::RST_30: cycles_consumed += rst_n(bus, 0x30); break;
+    case GBInstructions::LD_HL_SP_E: cycles_consumed += ld_hl_sp_offset(bus); break;
+    case GBInstructions::LD_SP_HL: cycles_consumed += ld_sp_hl(bus); break;
+    case GBInstructions::LD_A_NN: cycles_consumed += ld_a_nn(bus); break;
+    case GBInstructions::EI: cycles_consumed += 4; break; //todo this
+    case GBInstructions::CP_A_N: cycles_consumed += cp_n(bus); break;
+    case GBInstructions::RST_38: cycles_consumed += rst_n(bus, 0x38); 
 
     default:
         std::cerr << std::format("[ERROR @ CPU::run()] Invalid opcode, {:x2}\n", m_opcode);
@@ -1119,11 +1118,21 @@ int CPU::inc_rr(Bus& bus, JRegisters src){
     m_registers.set_jregister(src, rr);
     return 8;
 }
+int CPU::inc_rr(Bus& bus, u16& src){
+    bus.idle();
+    src++;
+    return 8;
+}
 int CPU::dec_rr(Bus& bus, JRegisters src){
     bus.idle();
     u16 rr = m_registers.get_jregister(src);
     rr--;
     m_registers.set_jregister(src, rr);
+    return 8;
+}
+int CPU::dec_rr(Bus& bus, u16& src){
+    bus.idle();
+    src--;
     return 8;
 }
 int CPU::add_hl_rr(Bus& bus, JRegisters src){

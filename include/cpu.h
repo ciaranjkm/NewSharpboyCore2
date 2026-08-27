@@ -88,7 +88,9 @@ private:
 
     //16 bit arithmetic
     int inc_rr(Bus& bus, JRegisters src);
+    int inc_rr(Bus& bus, u16& src);
     int dec_rr(Bus& bus, JRegisters src);
+    int dec_rr(Bus& bus, u16& src);
     int add_hl_rr(Bus& bus, JRegisters src);
     int add_hl_rr(Bus& bus,u16 src);
     int add_sp_e(Bus& bus);
