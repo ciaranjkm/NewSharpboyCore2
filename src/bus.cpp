@@ -15,6 +15,14 @@ void Bus::clear_ptrs(){
 }
 
 //bus activity
+u8 Bus::fetch_irq(u16 address){
+    //tick()
+    //tick()
+    //tick()
+    //check irq
+    //tick()
+    //return value
+}
 u8 Bus::read(u16 address){
     if(address < 0x8000){
         //cart rom
