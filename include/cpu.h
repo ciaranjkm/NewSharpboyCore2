@@ -1,17 +1,26 @@
 #pragma once
 #include <common.h>
+#include <instructions.h>
 #include <registers.h>
 #include <bus.h>
 
 class CPU{
 public:
-    //execute instruction
+    //execution
     int run(Bus& bus);
 
 private:
-    //  private vars
+    //private vars
     Registers m_registers;
     Flags m_flags;
+
+    u8 m_opcode = 0x00;
+    bool m_prefixed = false;
+
+    //execution
+    u8 fetch_opcode(Bus& bus);
+    int execute_opcode(Bus& bus);
+    int execute_prefix(Bus& bus);
 
     //8 bit load instructions
     int ld_r_r(u8& dest, u8 src);

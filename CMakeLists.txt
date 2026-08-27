@@ -24,5 +24,6 @@ target_sources(NewSharpboyCore
 			include/registers.h
 			include/bus.h
 			include/io.h
+			include/instructions.h
 )
 set_property(TARGET NewSharpboyCore PROPERTY CXX_STANDARD 20)
