@@ -60,7 +60,6 @@ int CPU::execute_opcode(Bus& bus){
     case GBInstructions::DEC_E:
     case GBInstructions::LD_E_N:
     case GBInstructions::RRA:
-        
     
     case GBInstructions::JR_NZ_E:    
     case GBInstructions::LD_HL_NN:
